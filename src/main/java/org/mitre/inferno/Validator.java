@@ -37,7 +37,7 @@ import org.hl7.fhir.validation.BaseValidator.ValidationControl;
 import org.hl7.fhir.validation.ValidationEngine;
 import org.hl7.fhir.validation.ValidationEngine.ValidationEngineBuilder;
 import org.hl7.fhir.validation.ValidatorSettings;
-import org.hl7.fhir.validation.cli.services.DisabledValidationPolicyAdvisor;
+import org.hl7.fhir.validation.service.DisabledValidationPolicyAdvisor;
 import org.hl7.fhir.validation.instance.advisor.BasePolicyAdvisorForFullValidation;
 import org.mitre.inferno.rest.IgResponse;
 import org.slf4j.Logger;
@@ -119,7 +119,9 @@ public class Validator {
     hl7Validator.setDisplayWarnings(displayIssuesAreWarnings);
     DisabledValidationPolicyAdvisor policyAdvisor = new DisabledValidationPolicyAdvisor();
     policyAdvisor.setPolicyAdvisor(
-        new BasePolicyAdvisorForFullValidation(ReferenceValidationPolicy.CHECK_TYPE_IF_EXISTS));
+        new BasePolicyAdvisorForFullValidation(
+            ReferenceValidationPolicy.CHECK_TYPE_IF_EXISTS,
+            null));
     hl7Validator.setPolicyAdvisor(policyAdvisor);
     hl7Validator.prepare();
 
@@ -237,7 +239,7 @@ public class Validator {
   // https://github.com/hapifhir/org.hl7.fhir.core/blob/6.2.8/org.hl7.fhir.utilities/src/main/java/org/hl7/fhir/utilities/npm/FilesystemPackageCacheManager.java#L318
   private void listSpecs(Map<String, String> specList, PackageServer server) throws IOException {
     PackageClient pc = new PackageClient(server);
-    List<PackageInfo> matches = pc.search(null, null, null, false);
+    List<PackageInfo> matches = pc.search(null, null, null, false, null);
     for (PackageInfo m : matches) {
       if (!specList.containsKey(m.getId())) {
         specList.put(m.getId(), m.getUrl());

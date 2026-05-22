@@ -49,3 +49,5 @@ settings.json
 
 # Mac Stuff
 .DS_Store
+
+bin

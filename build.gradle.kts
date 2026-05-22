@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("ca.uhn.hapi.fhir", "org.hl7.fhir.validation", "6.5.18")
+    implementation("ca.uhn.hapi.fhir", "org.hl7.fhir.validation", "6.9.7")
 
     // validator dependency needed for terminology (why can't it get this automatically?)
     implementation("com.squareup.okhttp3", "okhttp", "4.12.0")
