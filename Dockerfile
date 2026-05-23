@@ -1,4 +1,4 @@
-FROM openjdk:11 AS build
+FROM eclipse-temurin:17-jdk AS build
 
 # RUN curl -ksSL https://gitlab.mitre.org/mitre-scripts/mitre-pki/raw/master/os_scripts/install_certs.sh | MODE=ubuntu sh
 
@@ -6,6 +6,10 @@ WORKDIR /home
 # Grab Gradle first so it can be cached
 COPY gradle gradle
 COPY gradlew .
+
+RUN sed -i 's/\r$//' gradlew
+RUN chmod +x gradlew
+
 RUN ./gradlew --version
 
 COPY settings.gradle .
@@ -18,7 +22,7 @@ COPY src src
 RUN ./gradlew build
 RUN tar -xvf build/distributions/InfernoValidationService-*.tar
 
-FROM openjdk:11
+FROM eclipse-temurin:17-jdk
 
 # RUN curl -ksSL https://gitlab.mitre.org/mitre-scripts/mitre-pki/raw/master/os_scripts/install_certs.sh | MODE=ubuntu sh
 
