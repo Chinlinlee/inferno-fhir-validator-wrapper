@@ -393,7 +393,7 @@ public class Validator {
     if (System.getenv("TX_SERVER_URL") != null) {
       return System.getenv("TX_SERVER_URL");
     } else {
-      return "http://tx.fhir.org";
+      return "https://tx.fhir.org";
     }
   }
 
