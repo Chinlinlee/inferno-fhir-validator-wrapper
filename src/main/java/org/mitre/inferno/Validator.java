@@ -26,6 +26,7 @@ import org.hl7.fhir.r5.model.StructureDefinition;
 import org.hl7.fhir.r5.utils.validation.constants.ReferenceValidationPolicy;
 import org.hl7.fhir.utilities.FhirPublication;
 import org.hl7.fhir.utilities.VersionUtilities;
+import org.hl7.fhir.utilities.http.ManagedWebAccess;
 import org.hl7.fhir.utilities.npm.FilesystemPackageCacheManager;
 import org.hl7.fhir.utilities.npm.NpmPackage;
 import org.hl7.fhir.utilities.npm.PackageClient;
@@ -76,6 +77,9 @@ public class Validator {
     final String txLog = null;
     final String fhirVersion = "4.0.1";
     final boolean useEcosystem = true;
+
+    // Load fhir-settings
+    ManagedWebAccess.loadFromFHIRSettings();
 
     ValidationEngineBuilder engineBuilder =
         new ValidationEngineBuilder().withTxServer(
